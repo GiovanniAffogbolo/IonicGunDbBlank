@@ -13,8 +13,20 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <h1>Thoughts</h1>
+
+    <form>
+      <input name="message" type="text" placeholder="Type message" [(ngModel)]="message">
+      <button ion-button expand="full" round (click)="addThough()">Add</button>
+    </form>
+
+    <!-- <h2>ngFor List</h2>
+    <ul class="listNg">
+      <li *ngFor="let athought of thethoughts">
+    </ul> -->
+
+    <h2>Standard List</h2>
+    <ul id="list">
+
+    </ul>
 </ion-content>
