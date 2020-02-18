@@ -15,18 +15,20 @@
 
   <h1>Thoughts</h1>
 
-    <form>
-      <input name="message" type="text" placeholder="Type message" [(ngModel)]="message">
-      <button ion-button expand="full" round (click)="addThough()">Add</button>
-    </form>
+  <form>
+    <ion-item>
+      <ion-input name="message" type="text" placeholder="Type message" [(ngModel)]="message"></ion-input>
+    </ion-item>
+    <ion-button round (click)="addThough()">Add</ion-button>
+  </form>
 
-    <!-- <h2>ngFor List</h2>
+  <!-- <h2>ngFor List</h2>
     <ul class="listNg">
       <li *ngFor="let athought of thethoughts">
     </ul> -->
 
-    <h2>Standard List</h2>
-    <ul id="list">
+  <h2>Standard List</h2>
+  <ul id="list">
 
-    </ul>
+  </ul>
 </ion-content>
