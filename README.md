@@ -2,6 +2,8 @@
 
 A basic ionic application using GunDB
 
-git clone 
-npm install
-ionic serve
+- git clone https://github.com/GiovanniAffogbolo/IonicGunDbBlank.git
+
+- npm install
+
+- ionic serve
