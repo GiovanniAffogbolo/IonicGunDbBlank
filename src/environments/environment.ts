@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  local: 'http://localhost:8100/home',
+  gun_server_ip_adress: '10.101.22.33',
+  gun_server_remote: 'https://guntestgiovanni.herokuapp.com/gun',
+  //socket_server: 'http://localhost:4444',
 };
 
 /*
