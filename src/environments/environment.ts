@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  gun_server_secure: 'https://guntestgiovanni.herokuapp.com/gun',
-  gun_server_unsecure: 'http://guntestgiovanni.herokuapp.com/gun'
+  local: 'http://localhost:8100/home',
+  gun_server_ip_adress: '10.101.22.33',
+  gun_server_remote: 'https://guntestgiovanni.herokuapp.com/gun',
   //socket_server: 'http://localhost:4444',
 };
 

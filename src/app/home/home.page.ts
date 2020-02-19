@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import Gun from 'gun/gun';
 import 'gun/lib/path.js';
+//import 'gun/lib/webrctl';
 import { environment } from '../../environments/environment';
 import { AlertController } from '@ionic/angular';
 
-var gun = Gun().get('thoughts');
-
-
+var gunRemote: any;
+//var gun = g.get('message');
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -19,27 +19,30 @@ export class HomePage {
 
   thethoughts: Array<string> = [];
 
-  gunRemote: any;
+  //gunRemote: any;
 
   constructor(public alertController: AlertController) {
     this.connectGun();
+    this.ngOnInit();
   }
 
   public connectGun() {
-    this.gunRemote = new Gun({
-      peers: [environment.gun_server_secure],
+    gunRemote = new Gun({
+      peers: [environment.local, environment.gun_server_ip_adress],
       file: 'gunStore'
     });
-    //console.log(this.gunRemote);
+    //console.log(this.gunRemote.back('opt.peers'));
+    console.log(gunRemote);
   }
 
   ngOnInit() {
-    gun.map().on(function (thought, id) {
+    gunRemote.map().on(function (thought, id) {
+      console.log(thought);
       var ul = document.getElementById("list");
       var elementLi = document.createElement("li");
       elementLi.id = id;
       elementLi.addEventListener('click', function () {
-        gun.get(id).put(null);
+        gunRemote.get(id).put(null);
         elementLi.remove();
       });
       document.body.appendChild(elementLi);
@@ -53,7 +56,12 @@ export class HomePage {
 
   addThoughLocal() {
     if (this.message != null) {
-      gun.set({ message: this.name + this.message });
+      //gun.set({ message: this.name + this.message });
+
+      gunRemote.get('message').put({ message: this.name + this.message });
+      //gunRemote.set({ message: this.name + this.message });
+      console.log(gunRemote);
+      this.ngOnInit();
       //this.thethoughts.push(gun);
       //console.log(this.thethoughts);
       this.message = "";
@@ -65,8 +73,8 @@ export class HomePage {
 
   addThoughServer() {
     if (this.message != null) {
-      this.gunRemote.get('message').put({ message: this.name + this.message });
-      console.log(this.gunRemote.get('message').put({ message: this.name + this.message }));
+      gunRemote.get('message').put({ message: this.name + this.message });
+      console.log(gunRemote.get('message').put({ message: this.name + this.message }));
       this.message = "";
     } else {
       this.presentAlertConfirm();
