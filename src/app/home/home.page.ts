@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import Gun from 'gun/gun';
 import 'gun/lib/path.js';
 import { environment } from '../../environments/environment';
+import { AlertController } from '@ionic/angular';
 
 var gun = Gun().get('thoughts');
 
@@ -20,7 +21,7 @@ export class HomePage {
 
   gunRemote: any;
 
-  constructor() {
+  constructor(public alertController: AlertController) {
     this.connectGun();
   }
 
@@ -57,6 +58,7 @@ export class HomePage {
       //console.log(this.thethoughts);
       this.message = "";
     } else {
+      this.presentAlertConfirm();
       console.log("Your message is empty => " + this.message);
     }
   }
@@ -67,7 +69,25 @@ export class HomePage {
       console.log(this.gunRemote.get('message').put({ message: this.name + this.message }));
       this.message = "";
     } else {
+      this.presentAlertConfirm();
       console.log("Your message is empty => " + this.message);
     }
   }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      message: 'Your message is <strong>empty</strong>!!!',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            //console.log('Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }
