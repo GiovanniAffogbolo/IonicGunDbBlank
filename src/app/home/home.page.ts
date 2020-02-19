@@ -15,14 +15,19 @@ export class HomePage {
 
   name: string = "Giovanni : "; //change it by your name
 
-  thethoughts: Array<string> = [];
+  thoughts: Array<Thought> = new Array<Thought>();
 
   constructor() {
 
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
+    let tempArray = new Array<Thought>();
+    console.log('tempArray when created in at start of ngOnInit')
+    console.log(tempArray)
     gun.map().on(function (thought, id) {
+      console.log('gun.map().on')
       var ul = document.getElementById("list");
       var elementLi = document.createElement("li");
       elementLi.id = id;
@@ -35,18 +40,39 @@ export class HomePage {
         var html = thought.message;
         elementLi.appendChild(document.createTextNode(html));
         ul.appendChild(elementLi);
+        console.log('if(thought)')
+        tempArray.push(new Thought(id, thought.message));
+        console.log('tempArray at the end of if (thought)')
+        console.log(tempArray)
       }
     });
+    console.log('tempArray to thoughts arrray')
+    tempArray.forEach(thought => {
+      this.thoughts.push(thought)
+      console.log(thought)
+    })
+    console.log('this.thoughts:')
+    console.log(this.thoughts);
   }
 
-  addThough() {
+  addThought() {
     if (this.message != null) {
       gun.set({ message: this.name + this.message });
-      //this.thethoughts.push(gun);
-      //console.log(this.thethoughts);
+      //this.thoughts.push(gun);
+      //console.log(this.thoughts);
       this.message = "";
     } else {
       console.log("Your message is empty => " + this.message);
     }
+  }
+}
+
+class Thought {
+  id: number;
+  message: string;
+
+  constructor(id: number, message: string) {
+    this.id = id;
+    this.message = message;
   }
 }
