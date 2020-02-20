@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Message app
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,27 +9,23 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Message app</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <h1>Thoughts</h1>
+  <h1>Messages</h1>
 
+  <ion-list id="list">
+
+  </ion-list>
+  <br>
   <form>
     <ion-item>
-      <ion-input name="message" type="text" placeholder="Type message" [(ngModel)]="message"></ion-input>
+      <ion-input name="username" type="text" placeholder="Username" [(ngModel)]="username"></ion-input>
     </ion-item>
-    <ion-button round (click)="addThoughLocal()">Add Locally</ion-button>
-    <ion-button round (click)="addThoughServer()">Add On Remote Server</ion-button>
+    <ion-item>
+      <ion-textarea name="message" aria-placeholder="Message" [(ngModel)]="message"></ion-textarea>
+    </ion-item>
+    <ion-button round (click)="sendMessage()">Send</ion-button>
   </form>
-
-  <h2>Standard List</h2>
-  <ul id="list">
-
-  </ul>
-
-  <h2>ngFor List</h2>
-  <ion-list>
-    <ion-item *ngFor="let thought of thoughts">{{thought.message}}</ion-item>
-  </ion-list>
 </ion-content>
