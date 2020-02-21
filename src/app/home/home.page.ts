@@ -15,23 +15,49 @@ export class HomePage {
   username: string;
   message: string;
 
+  messages = [{who: 'user1', what: 'test1', when: 'date1'}, {who: 'user2', what: 'test2', when: 'date2'}];
+  // messages: Message[];
+
   constructor(public alertController: AlertController) { }
 
   ngOnInit() {
-    gun.map().on(function (message, id) {
+    // gun.map().on(function (message, id) {
+    //   if (message != null && message.when && message.who && message.what) {
+    //     var messageList = document.getElementById('list');
+    //     var messageItem = document.createElement("ion-item");
+    //     messageItem.id = id;
+    //     messageItem.appendChild(document.createTextNode(new Date(message.when).toLocaleString()+ message.who + message.what));
+    //     messageList.appendChild(messageItem);
+    //   }
+    // });
+    // this.messages = this.getMessages();
+    // console.log(this.messages);
+    console.log(gun.map().val(function (message, id) {
       if (message != null && message.when && message.who && message.what) {
-        var ul = document.getElementById("list");
-        var elementLi = document.createElement("ion-item");
-        elementLi.id = id;
-        elementLi.appendChild(document.createTextNode(new Date(message.when).toLocaleString()+ message.who + message.what));
-        ul.appendChild(elementLi);
+        var messageList = document.getElementById('list');
+        var messageItem = document.createElement("ion-item");
+        messageItem.id = id;
+        messageItem.appendChild(document.createTextNode(new Date(message.when).toLocaleString()+ message.who + message.what));
+        messageList.appendChild(messageItem);
       }
-    });
+    }));
   }
+
+  // getMessages() {
+  //   return gun.map().val(function (message, id) {
+  //     if (message != null && message.when && message.who && message.what) {
+  //       var messageList = document.getElementById('list');
+  //       var messageItem = document.createElement("ion-item");
+  //       messageItem.id = id;
+  //       messageItem.appendChild(document.createTextNode(new Date(message.when).toLocaleString() + message.who + message.what));
+  //       messageList.appendChild(messageItem);
+  //     }
+  //   });
+  // }
 
   sendMessage() {
     if (this.username != null && this.message != null) {
-      gun.set({ what: this.message, when: new Date().getTime(), who: this.username});
+      gun.set({ what: this.message, when: new Date().getTime(), who: this.username });
       this.message = "";
     } else {
       this.presentAlertConfirm();
@@ -54,3 +80,15 @@ export class HomePage {
     await alert.present();
   }
 }
+
+// class Message {
+//   who: string;
+//   when: string;
+//   what: string;
+
+//   constructor (who: string, when: string, what: string) {
+//     this.who = who;
+//     this.when = when;
+//     this.what = what;
+//   }
+// }
