@@ -24,7 +24,7 @@ export class HomePage {
     this.messages = new Array<Message>();
     var self = this;
     if (this.messages) {
-      gun.map().once(function (message, id) {
+      gun.get('messages').map(message => message.who === 'Wilco' || message.who === 'Amjada' ? message : undefined).once(function (message, id) {
         if (message != null && message.when && message.who && message.what) {
           self.messages.push(new Message(message.who, new Date(message.when).toLocaleString(), message.what));
         }
@@ -34,7 +34,7 @@ export class HomePage {
 
   sendMessage() {
     if (this.username != null && this.message != null) {
-      gun.set({ what: this.message, when: new Date().getTime(), who: this.username });
+      gun.get('messages').set({ what: this.message, when: new Date().getTime(), who: this.username });
       this.message = "";
     } else {
       this.presentAlertConfirm();

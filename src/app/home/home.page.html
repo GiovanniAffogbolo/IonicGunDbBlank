@@ -13,8 +13,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <h1>Messages</h1>
-
   <ion-list *ngIf="messages" lines="none">
     <app-message *ngFor="let message of messages" [username]="message.who" [message]="message.what" [date]="message.when"></app-message>
   </ion-list>
