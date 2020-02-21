@@ -15,45 +15,22 @@ export class HomePage {
   username: string;
   message: string;
 
-  messages = [{who: 'user1', what: 'test1', when: 'date1'}, {who: 'user2', what: 'test2', when: 'date2'}];
-  // messages: Message[];
+  // messages = [{who: 'Wilco', what: 'Hoi', when: '20/02/2020'}, {who: 'Amjada', what: 'Hallo', when: '20/02/2020'}];
+  messages: Message[];
 
   constructor(public alertController: AlertController) { }
 
-  ngOnInit() {
-    // gun.map().on(function (message, id) {
-    //   if (message != null && message.when && message.who && message.what) {
-    //     var messageList = document.getElementById('list');
-    //     var messageItem = document.createElement("ion-item");
-    //     messageItem.id = id;
-    //     messageItem.appendChild(document.createTextNode(new Date(message.when).toLocaleString()+ message.who + message.what));
-    //     messageList.appendChild(messageItem);
-    //   }
-    // });
-    // this.messages = this.getMessages();
-    // console.log(this.messages);
-    gun.map().once(function (message, id) {
-      if (message != null && message.when && message.who && message.what) {
-        var messageList = document.getElementById('list');
-        var messageItem = document.createElement("ion-item");
-        messageItem.id = id;
-        messageItem.appendChild(document.createTextNode(`${new Date(message.when).toLocaleString()} ${message.who}: ${message.what}`));
-        messageList.appendChild(messageItem);
-      }
-    });
+  ionViewDidEnter() {
+    this.messages = new Array<Message>();
+    var self = this;
+    if (this.messages) {
+      gun.map().once(function (message, id) {
+        if (message != null && message.when && message.who && message.what) {
+          self.messages.push(new Message(message.who, new Date(message.when).toLocaleString(), message.what));
+        }
+      });
+    }
   }
-
-  // getMessages() {
-  //   return gun.map().val(function (message, id) {
-  //     if (message != null && message.when && message.who && message.what) {
-  //       var messageList = document.getElementById('list');
-  //       var messageItem = document.createElement("ion-item");
-  //       messageItem.id = id;
-  //       messageItem.appendChild(document.createTextNode(new Date(message.when).toLocaleString() + message.who + message.what));
-  //       messageList.appendChild(messageItem);
-  //     }
-  //   });
-  // }
 
   sendMessage() {
     if (this.username != null && this.message != null) {
@@ -81,14 +58,14 @@ export class HomePage {
   }
 }
 
-// class Message {
-//   who: string;
-//   when: string;
-//   what: string;
+class Message {
+  who: string;
+  when: string;
+  what: string;
 
-//   constructor (who: string, when: string, what: string) {
-//     this.who = who;
-//     this.when = when;
-//     this.what = what;
-//   }
-// }
+  constructor(who: string, when: string, what: string) {
+    this.who = who;
+    this.when = when;
+    this.what = what;
+  }
+}

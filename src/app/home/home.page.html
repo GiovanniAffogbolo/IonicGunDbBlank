@@ -15,8 +15,8 @@
 
   <h1>Messages</h1>
 
-  <ion-list id="list">
-
+  <ion-list *ngIf="messages" lines="none">
+    <app-message *ngFor="let message of messages" [username]="message.who" [message]="message.what" [date]="message.when"></app-message>
   </ion-list>
 
   <br>
@@ -29,9 +29,4 @@
     </ion-item>
     <ion-button round (click)="sendMessage()">Send</ion-button>
   </form>
-
-
-  <ion-list lines="none">
-    <app-message *ngFor="let message of messages" [username]="message.who" [message]="message.what" [date]="message.when"></app-message>
-  </ion-list>
 </ion-content>
