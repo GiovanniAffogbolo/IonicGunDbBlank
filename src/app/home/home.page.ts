@@ -32,15 +32,15 @@ export class HomePage {
     // });
     // this.messages = this.getMessages();
     // console.log(this.messages);
-    console.log(gun.map().val(function (message, id) {
+    gun.map().once(function (message, id) {
       if (message != null && message.when && message.who && message.what) {
         var messageList = document.getElementById('list');
         var messageItem = document.createElement("ion-item");
         messageItem.id = id;
-        messageItem.appendChild(document.createTextNode(new Date(message.when).toLocaleString()+ message.who + message.what));
+        messageItem.appendChild(document.createTextNode(`${new Date(message.when).toLocaleString()} ${message.who}: ${message.what}`));
         messageList.appendChild(messageItem);
       }
-    }));
+    });
   }
 
   // getMessages() {
